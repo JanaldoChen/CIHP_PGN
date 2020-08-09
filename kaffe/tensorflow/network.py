@@ -75,7 +75,7 @@ class Network(object):
         assert len(args) != 0
         self.terminals = []
         for fed_layer in args:
-            if isinstance(fed_layer, basestring):
+            if isinstance(fed_layer, str):
                 try:
                     fed_layer = self.layers[fed_layer]
                 except KeyError:
@@ -126,7 +126,7 @@ class Network(object):
         # Verify that the padding is acceptable
         self.validate_padding(padding)
         # Get the number of channels in the input
-        c_i = input.get_shape()[-1]
+        c_i = input.get_shape()[-1].value
         # Verify that the grouping parameter is valid
         assert c_i % group == 0
         assert c_o % group == 0
@@ -168,7 +168,7 @@ class Network(object):
         # Verify that the padding is acceptable
         self.validate_padding(padding)
         # Get the number of channels in the input
-        c_i = input.get_shape()[-1]
+        c_i = input.get_shape()[-1].value
         # Verify that the grouping parameter is valid
         assert c_i % group == 0
         assert c_o % group == 0
