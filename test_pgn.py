@@ -16,14 +16,15 @@ from PIL import Image
 from utils import *
 
 N_CLASSES = 20
-DATA_DIR = './datasets/CIHP'
-LIST_PATH = './datasets/CIHP/list/val.txt'
-DATA_ID_LIST = './datasets/CIHP/list/val_id.txt'
-with open(DATA_ID_LIST, 'r') as f:
-    NUM_STEPS = len(f.readlines()) 
 RESTORE_FROM = './checkpoint/CIHP_pgn'
 
-def main():
+def main(opt):
+    DATASET = opt.dataset
+    DATA_DIR = './datasets/{}'.format(DATASET)
+    LIST_PATH = './datasets/{}/list/val.txt'.format(DATASET)
+    DATA_ID_LIST = './datasets/{}/list/val_id.txt'.format(DATASET)
+    with open(DATA_ID_LIST, 'r') as f:
+        NUM_STEPS = len(f.readlines()) 
     """Create the model and start the evaluation process."""
     
     # Create queue coordinator.
@@ -206,7 +207,10 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dataset', type=str, default='CHIP')
+    args = parser.parse_args()
+    main(args)
 
 
 ##############################################################333
